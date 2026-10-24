@@ -66,8 +66,8 @@ they are untested and the app only opens the COOL 68's USB ID.
 ## Build from source
 
 ```powershell
-git clone https://github.com/YOUR-USER/cool68-control-center
-cd cool68-control-center
+git clone https://github.com/fernandoorteganu-glitch/Cool-68---open-driver---EN
+cd Cool-68---open-driver---EN
 python -m pip install -r requirements-dev.txt
 python gui.py                 # run the app
 python -m pytest              # unit tests (no keyboard needed)
