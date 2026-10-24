@@ -1,7 +1,7 @@
 <#
 Signs files with Authenticode (SHA-256, with a trusted timestamp so the signature outlives the certificate).
 
-  scripts/sign.ps1 -Files dist\COOL68\COOL68.exe, release\COOL68-Setup-1.0.0.exe
+  scripts/sign.ps1 -Files dist\COOL68-Open-Driver\COOL68-Open-Driver.exe, release\COOL68-Open-Driver-Setup-1.0.0.exe
   scripts/sign.ps1 -Files x.exe -PfxPath cert.pfx -PfxPassword (Read-Host -AsSecureString)
 
 Without -PfxPath it uses the self-signed certificate from scripts/new-selfsigned-cert.ps1.
@@ -11,7 +11,7 @@ param(
     [Parameter(Mandatory)][string[]]$Files,
     [string]$PfxPath,
     [securestring]$PfxPassword,
-    [string]$Subject = "CN=COOL 68 Control Center (self-signed)",
+    [string]$Subject = "CN=COOL 68 Open Driver App (self-signed)",
     [string]$TimestampServer = "http://timestamp.digicert.com"
 )
 $ErrorActionPreference = "Stop"

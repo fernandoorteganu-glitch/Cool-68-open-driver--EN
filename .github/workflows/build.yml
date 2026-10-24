@@ -69,7 +69,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: COOL68-windows
+          name: COOL68-Open-Driver-windows
           path: release/*
 
       - name: Publish release

@@ -98,7 +98,7 @@ class Ctx:
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("COOL 68")
+        self.setWindowTitle("COOL 68 Open Driver App")
         self.setWindowIcon(app_icon())
         self.resize(1340, 860)
         self.setMinimumSize(1280, 760)
@@ -147,7 +147,7 @@ class MainWindow(QMainWindow):
         col = QVBoxLayout()
         col.setSpacing(0)
         col.addWidget(label("COOL 68", "brand"))
-        col.addWidget(label("Control center", "muted"))
+        col.addWidget(label("Open Driver App", "muted"))
         brand.addLayout(col)
         brand.addStretch()
         lay.addLayout(brand)

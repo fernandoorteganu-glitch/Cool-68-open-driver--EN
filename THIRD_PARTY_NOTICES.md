@@ -1,6 +1,6 @@
 # Third-party notices
 
-COOL 68 Control Center is released under the MIT License (see `LICENSE`). It includes or depends on:
+COOL 68 Open Driver App is released under the MIT License (see `LICENSE`). It includes or depends on:
 
 | Component | License | Notes |
 |---|---|---|

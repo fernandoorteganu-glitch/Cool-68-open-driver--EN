@@ -6,7 +6,7 @@ SmartScreen still shows "unknown publisher". For publicly trusted signing see do
 This script never adds anything to the Trusted Root store.
 #>
 [CmdletBinding()]
-param([string]$Subject = "CN=COOL 68 Control Center (self-signed)", [int]$Years = 3)
+param([string]$Subject = "CN=COOL 68 Open Driver App (self-signed)", [int]$Years = 3)
 $ErrorActionPreference = "Stop"
 $existing = Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert |
     Where-Object { $_.Subject -eq $Subject -and $_.NotAfter -gt (Get-Date).AddDays(30) } | Select-Object -First 1

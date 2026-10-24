@@ -25,7 +25,7 @@ Set-Location $root
 
 $version = (Select-String -Path app/__init__.py -Pattern '__version__ = "(.+)"').Matches[0].Groups[1].Value
 $v4 = (($version -split '\.')[0..2] + @('0')) -join ','
-Write-Host "== COOL 68 Control Center $version ==" -ForegroundColor Cyan
+Write-Host "== COOL 68 Open Driver App $version ==" -ForegroundColor Cyan
 
 Remove-Item build, dist, release -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory release, build | Out-Null
@@ -35,13 +35,13 @@ New-Item -ItemType Directory release, build | Out-Null
 VSVersionInfo(
   ffi=FixedFileInfo(filevers=($v4), prodvers=($v4), mask=0x3f, flags=0x0, OS=0x40004, fileType=0x1, subtype=0x0, date=(0, 0)),
   kids=[StringFileInfo([StringTable('040904B0', [
-    StringStruct('CompanyName', 'COOL 68 Control Center contributors'),
-    StringStruct('FileDescription', 'COOL 68 Control Center'),
+    StringStruct('CompanyName', 'COOL 68 Open Driver App contributors'),
+    StringStruct('FileDescription', 'COOL 68 Open Driver App'),
     StringStruct('FileVersion', '$version'),
-    StringStruct('InternalName', 'COOL68'),
+    StringStruct('InternalName', 'COOL68-Open-Driver'),
     StringStruct('LegalCopyright', 'MIT License'),
-    StringStruct('OriginalFilename', 'COOL68.exe'),
-    StringStruct('ProductName', 'COOL 68 Control Center'),
+    StringStruct('OriginalFilename', 'COOL68-Open-Driver.exe'),
+    StringStruct('ProductName', 'COOL 68 Open Driver App'),
     StringStruct('ProductVersion', '$version')])]),
     VarFileInfo([VarStruct('Translation', [1033, 1200])])])
 "@ | Set-Content -Encoding ASCII build/version_info.txt
@@ -51,14 +51,14 @@ $common = @("--noconfirm", "--clean", "--noconsole", "--icon", "assets/COOL68.ic
 foreach ($m in "QtWebEngineCore", "QtWebEngineWidgets", "QtPdf", "Qt3DCore", "QtQuick", "QtQml", "QtNetwork", "QtSql", "QtMultimedia") {
     $common += @("--exclude-module", "PySide6.$m")
 }
-Invoke-Native { python -m PyInstaller @common --onedir --name COOL68 gui.py } "PyInstaller (onedir)"
-Invoke-Native { python -m PyInstaller @common --onefile --name COOL68-portable gui.py } "PyInstaller (onefile)"
+Invoke-Native { python -m PyInstaller @common --onedir --name COOL68-Open-Driver gui.py } "PyInstaller (onedir)"
+Invoke-Native { python -m PyInstaller @common --onefile --name COOL68-Open-Driver-portable gui.py } "PyInstaller (onefile)"
 
 $signArgs = @{}
 if ($PfxPath) { $signArgs.PfxPath = $PfxPath; $signArgs.PfxPassword = $PfxPassword }
-if ($Sign) { & "$PSScriptRoot/sign.ps1" -Files dist/COOL68/COOL68.exe, dist/COOL68-portable.exe @signArgs }
+if ($Sign) { & "$PSScriptRoot/sign.ps1" -Files dist/COOL68-Open-Driver/COOL68-Open-Driver.exe, dist/COOL68-Open-Driver-portable.exe @signArgs }
 
-Copy-Item dist/COOL68-portable.exe "release/COOL68-$version-portable.exe"
+Copy-Item dist/COOL68-Open-Driver-portable.exe "release/COOL68-Open-Driver-$version-portable.exe"
 
 if (-not $SkipInstaller) {
     $iscc = @("$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe", "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe",
@@ -66,8 +66,8 @@ if (-not $SkipInstaller) {
     if (-not $iscc) { $iscc = (Get-Command iscc -ErrorAction SilentlyContinue).Source }
     if (-not $iscc) { throw "Inno Setup not found. Install it with: winget install JRSoftware.InnoSetup" }
     Invoke-Native { & $iscc "/DAppVersion=$version" installer/COOL68.iss } "Inno Setup"
-    Move-Item "installer/Output/COOL68-Setup-$version.exe" release/
-    if ($Sign) { & "$PSScriptRoot/sign.ps1" -Files "release/COOL68-Setup-$version.exe" @signArgs }
+    Move-Item "installer/Output/COOL68-Open-Driver-Setup-$version.exe" release/
+    if ($Sign) { & "$PSScriptRoot/sign.ps1" -Files "release/COOL68-Open-Driver-Setup-$version.exe" @signArgs }
 }
 
 Get-ChildItem release -File | Where-Object Name -ne SHA256SUMS.txt | ForEach-Object {

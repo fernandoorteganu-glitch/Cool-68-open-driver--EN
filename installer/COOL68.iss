@@ -1,10 +1,10 @@
-; Inno Setup script for COOL 68 Control Center.
+; Inno Setup script for COOL 68 Open Driver App.
 ; Build with:  ISCC /DAppVersion=1.0.0 installer\COOL68.iss     (scripts\build.ps1 does this for you)
 #ifndef AppVersion
   #define AppVersion "1.0.0"
 #endif
-#define AppName "COOL 68 Control Center"
-#define AppExe "COOL68.exe"
+#define AppName "COOL 68 Open Driver App"
+#define AppExe "COOL68-Open-Driver.exe"
 
 [Setup]
 ; Keep this id fixed so new versions upgrade the old install instead of installing next to it.
@@ -12,7 +12,7 @@ AppId={{DD12B32B-9AFE-4014-AC53-15E148224E93}
 AppName={#AppName}
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
-AppPublisher=COOL 68 Control Center contributors
+AppPublisher=COOL 68 Open Driver App contributors
 DefaultDirName={autopf}\{#AppName}
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
@@ -21,7 +21,7 @@ PrivilegesRequired=lowest
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 OutputDir=Output
-OutputBaseFilename=COOL68-Setup-{#AppVersion}
+OutputBaseFilename=COOL68-Open-Driver-Setup-{#AppVersion}
 SetupIconFile=..\assets\COOL68.ico
 UninstallDisplayIcon={app}\{#AppExe}
 LicenseFile=..\LICENSE
@@ -38,7 +38,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "..\dist\COOL68\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\dist\COOL68-Open-Driver\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\THIRD_PARTY_NOTICES.md"; DestDir: "{app}"; Flags: ignoreversion
 

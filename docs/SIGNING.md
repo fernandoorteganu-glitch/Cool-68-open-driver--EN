@@ -6,7 +6,7 @@ this project does and what your choices are.
 
 ## What the release builds use today
 
-`scripts/build.ps1 -Sign` signs the portable exe, the app's `COOL68.exe` and the installer with **Authenticode (SHA-256 and a
+`scripts/build.ps1 -Sign` signs the portable exe, the app's `COOL68-Open-Driver.exe` and the installer with **Authenticode (SHA-256 and a
 trusted timestamp)** using a **self-signed certificate** made by `scripts/new-selfsigned-cert.ps1`.
 
 * The signature is real: it proves the file has not been altered since it was signed (`Get-AuthenticodeSignature file.exe`).
@@ -41,7 +41,7 @@ secrets it publishes unsigned files. Never commit a `.pfx` (`.gitignore` blocks 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\new-selfsigned-cert.ps1     # once
 powershell -ExecutionPolicy Bypass -File scripts\build.ps1 -Sign
-Get-AuthenticodeSignature release\COOL68-Setup-1.0.0.exe | Format-List Status, SignerCertificate
+Get-AuthenticodeSignature release\COOL68-Open-Driver-Setup-1.0.0.exe | Format-List Status, SignerCertificate
 ```
 
 With a self-signed certificate `Status` reads `UnknownError` / "not trusted": that is expected, and the signature is still present and valid.

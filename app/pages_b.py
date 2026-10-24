@@ -682,7 +682,7 @@ class SettingsPage(Page):
         bottom.addWidget(d, 1)
         self.body.addLayout(bottom)
         about = Card("About")
-        about.lay.addWidget(label(f"COOL 68 Control Center  ·  version {__version__}"))
+        about.lay.addWidget(label(f"COOL 68 Open Driver App  ·  version {__version__}"))
         about.lay.addWidget(label("An unofficial, open-source tool for the Dareu COOL 68. It is not made by or affiliated "
                                   "with Dareu. It only sends configuration commands and never flashes firmware. "
                                   "Use it at your own risk.", "muted", True))

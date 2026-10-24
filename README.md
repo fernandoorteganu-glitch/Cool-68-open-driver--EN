@@ -1,4 +1,4 @@
-# COOL 68 Control Center
+# COOL 68 Open Driver App
 
 An open-source desktop app for the **Dareu COOL 68** hall-effect keyboard. It replaces the vendor's configuration
 software: lighting and per-key RGB, key remapping, macros, hall-effect tuning (actuation point, rapid trigger, dead zones),
@@ -16,8 +16,8 @@ It talks to the keyboard directly over USB (HID), so there is **no driver to ins
 
 Get the latest build from the **[Releases](../../releases)** page:
 
-* **`COOL68-Setup-x.y.z.exe`**: the installer (per-user, no admin rights needed, adds a Start menu entry and an uninstaller).
-* **`COOL68-x.y.z-portable.exe`**: a single file, nothing to install.
+* **`COOL68-Open-Driver-Setup-x.y.z.exe`**: the installer (per-user, no admin rights needed, adds a Start menu entry and an uninstaller).
+* **`COOL68-Open-Driver-x.y.z-portable.exe`**: a single file, nothing to install.
 
 Windows 10/11, 64-bit, keyboard connected with the USB cable.
 

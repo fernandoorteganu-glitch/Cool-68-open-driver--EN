@@ -45,8 +45,8 @@ powershell -ExecutionPolicy Bypass -File scripts\build.ps1
 
 This produces, in `release/`:
 
-* `COOL68-Setup-<version>.exe`: per-user installer (no admin rights, Start menu entry, uninstaller)
-* `COOL68-<version>-portable.exe`: single-file build
+* `COOL68-Open-Driver-Setup-<version>.exe`: per-user installer (no admin rights, Start menu entry, uninstaller)
+* `COOL68-Open-Driver-<version>-portable.exe`: single-file build
 * `SHA256SUMS.txt`
 
 Add `-Sign` to sign the files; see [SIGNING.md](SIGNING.md).
