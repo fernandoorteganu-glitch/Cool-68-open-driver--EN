@@ -52,10 +52,17 @@ The build prints the installer's SHA-256 at the end, for the release notes.
 
 Add `-Sign` to sign the files; see [SIGNING.md](SIGNING.md).
 
-## Cut a release on GitHub
+## Publish a release on GitHub
 
-1. Change `__version__` in `app/__init__.py`.
-2. Commit, then `git tag v1.2.3 && git push --tags`.
-3. The workflow runs the tests, builds, and attaches the files to a new GitHub Release.
+Releases are published by hand, so the file people download is the installer you built, signed and tested.
+
+1. Change `__version__` in `app/__init__.py`, commit and push to `main`.
+2. Build locally with signing: `powershell -ExecutionPolicy Bypass -File scripts\build.ps1 -Sign`. It prints the installer's SHA-256.
+3. On GitHub: Releases → Draft a new release → create the tag `vX.Y.Z` on `main`.
+4. Attach `release/COOL68-Open-Driver-Setup-X.Y.Z.exe` (only that file) and put its SHA-256 in the description.
+5. Publish.
+
+The workflow in `.github/workflows/build.yml` also runs on the tag. It runs the tests and builds an unsigned copy of
+the installer as a workflow artifact for comparison; it never touches the release.
 
 The installer keeps a fixed `AppId`, so installing a newer version upgrades the old one in place.

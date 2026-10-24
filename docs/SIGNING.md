@@ -33,8 +33,8 @@ Add two repository secrets (Settings → Secrets and variables → Actions):
 * `SIGNING_PFX_BASE64`: your `.pfx` file, base64-encoded (`[Convert]::ToBase64String([IO.File]::ReadAllBytes("cert.pfx"))`)
 * `SIGNING_PFX_PASSWORD`: its password
 
-The workflow in `.github/workflows/build.yml` then signs everything automatically when you push a `vX.Y.Z` tag. Without the
-secrets it publishes unsigned files. Never commit a `.pfx` (`.gitignore` blocks them).
+The workflow in `.github/workflows/build.yml` then signs its CI build with that certificate. The CI build is only a workflow
+artifact; releases are published by hand (see BUILDING.md). Never commit a `.pfx` (`.gitignore` blocks them).
 
 ### Signing locally
 

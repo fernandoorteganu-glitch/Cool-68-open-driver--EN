@@ -1,8 +1,10 @@
 name: build
 
-# Runs the tests on every push/PR. Tags like v1.0.0 also build the installer + portable exe and
-# attach them to a GitHub Release. If the repository has the SIGNING_PFX_BASE64 / SIGNING_PFX_PASSWORD
-# secrets (a code-signing certificate), the files are signed; otherwise they are published unsigned.
+# Runs the tests and builds the installer on every push, PR and tag, and keeps it as a downloadable
+# workflow artifact. It does NOT publish releases: a release is created by hand on GitHub with the
+# installer built and signed locally (see docs/BUILDING.md), so a tag push can never overwrite it.
+# If the repository has the SIGNING_PFX_BASE64 / SIGNING_PFX_PASSWORD secrets (a code-signing
+# certificate), the CI build is signed too; otherwise it is unsigned.
 
 on:
   push:
@@ -12,7 +14,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write   # to attach files to the release
+  contents: read
 
 jobs:
   windows:
@@ -71,10 +73,3 @@ jobs:
         with:
           name: COOL68-Open-Driver-windows
           path: release/*
-
-      - name: Publish release
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
-        with:
-          files: release/*
-          generate_release_notes: true
