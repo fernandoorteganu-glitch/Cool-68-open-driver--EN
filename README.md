@@ -20,6 +20,12 @@ It installs just for your user (no administrator rights needed), adds a Start me
 
 Windows 10/11, 64-bit, keyboard connected with the USB cable.
 
+| Platform | Status |
+|---|---|
+| **Windows** | Available now |
+| **macOS** | Coming soon |
+| **Linux** | Coming soon |
+
 > **Windows SmartScreen may warn on first launch** ("Windows protected your PC"). The installer is signed with a
 > self-signed certificate, which Windows does not trust by default, so the publisher shows as unknown. Click
 > **More info → Run anyway**. To check your download, compare its hash with the one on the release page:
@@ -90,7 +96,7 @@ kb.close()
 
 ## Contributing
 
-Issues and pull requests are welcome, especially: other keyboards/firmware versions, the effects' exact looks, and
+Issues and pull requests are welcome, especially: **macOS and Linux support**, other keyboards/firmware versions, the effects' exact looks, and
 anything in *Good to know* that you can improve. Please run `python -m pytest` before sending a change.
 
 ## License
