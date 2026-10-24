@@ -1,0 +1,6 @@
+* text=auto
+*.ttf binary
+*.png binary
+*.ico binary
+*.svg text
+*.ps1 text eol=crlf
