@@ -6,13 +6,13 @@ this project does and what your choices are.
 
 ## What the release builds use today
 
-`scripts/build.ps1 -Sign` signs the portable exe, the app's `COOL68-Open-Driver.exe` and the installer with **Authenticode (SHA-256 and a
+`scripts/build.ps1 -Sign` signs the app's `COOL68-Open-Driver.exe`, the installer (and the portable exe with `-Portable`) with **Authenticode (SHA-256 and a
 trusted timestamp)** using a **self-signed certificate** made by `scripts/new-selfsigned-cert.ps1`.
 
 * The signature is real: it proves the file has not been altered since it was signed (`Get-AuthenticodeSignature file.exe`).
 * Windows does **not** trust a self-signed certificate, so the publisher still shows as unknown and SmartScreen may
   warn on the first run. Users click **More info → Run anyway**.
-* Always publish `SHA256SUMS.txt` next to the files so people can verify their download.
+* Put the installer's SHA-256 (printed at the end of `scripts/build.ps1`) in the release notes so people can verify their download with `Get-FileHash`.
 * The script never installs the certificate into the *Trusted Root* store. Don't ask users to do that; it weakens their
   security.
 

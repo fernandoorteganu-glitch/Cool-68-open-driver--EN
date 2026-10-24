@@ -43,11 +43,12 @@ winget install JRSoftware.InnoSetup                       # once; installs for y
 powershell -ExecutionPolicy Bypass -File scripts\build.ps1
 ```
 
-This produces, in `release/`:
+This produces one file in `release/`:
 
-* `COOL68-Open-Driver-Setup-<version>.exe`: per-user installer (no admin rights, Start menu entry, uninstaller)
-* `COOL68-Open-Driver-<version>-portable.exe`: single-file build
-* `SHA256SUMS.txt`
+* `COOL68-Open-Driver-Setup-<version>.exe`: the per-user installer (no admin rights, Start menu entry, uninstaller). This is the only file users need.
+
+Add `-Portable` if you also want a single-file `COOL68-Open-Driver-<version>-portable.exe` and a `SHA256SUMS.txt`.
+The build prints the installer's SHA-256 at the end, for the release notes.
 
 Add `-Sign` to sign the files; see [SIGNING.md](SIGNING.md).
 

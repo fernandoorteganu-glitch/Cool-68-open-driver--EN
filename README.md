@@ -14,17 +14,16 @@ It talks to the keyboard directly over USB (HID), so there is **no driver to ins
 
 ## Download
 
-Get the latest build from the **[Releases](../../releases)** page:
-
-* **`COOL68-Open-Driver-Setup-x.y.z.exe`**: the installer (per-user, no admin rights needed, adds a Start menu entry and an uninstaller).
-* **`COOL68-Open-Driver-x.y.z-portable.exe`**: a single file, nothing to install.
+Get **`COOL68-Open-Driver-Setup-x.y.z.exe`** from the **[Releases](../../releases)** page, run it, and you're done.
+It installs just for your user (no administrator rights needed), adds a Start menu entry, and comes with an uninstaller
+(Windows Settings → Apps).
 
 Windows 10/11, 64-bit, keyboard connected with the USB cable.
 
-> **Windows SmartScreen may warn on first launch** ("Windows protected your PC"). The builds are signed with a
+> **Windows SmartScreen may warn on first launch** ("Windows protected your PC"). The installer is signed with a
 > self-signed certificate, which Windows does not trust by default, so the publisher shows as unknown. Click
-> **More info → Run anyway**. You can check the file against `SHA256SUMS.txt` on the release page, and the source is all
-> here. See [docs/SIGNING.md](docs/SIGNING.md).
+> **More info → Run anyway**. To check your download, compare its hash with the one on the release page:
+> `Get-FileHash .\COOL68-Open-Driver-Setup-1.0.0.exe`. The source is all here; see [docs/SIGNING.md](docs/SIGNING.md).
 
 ## What it does
 
@@ -74,7 +73,7 @@ python -m pip install -r requirements-dev.txt
 python gui.py                 # run the app
 python -m pytest              # unit tests (no keyboard needed)
 python tools/hardware_selftest.py --yes     # optional: test against a real keyboard, restores everything
-powershell -ExecutionPolicy Bypass -File scriptsuild.ps1     # portable exe + installer in release/ (needs Inno Setup)
+powershell -ExecutionPolicy Bypass -File scripts\build.ps1     # builds the installer in release/ (needs Inno Setup)
 ```
 
 More in [docs/BUILDING.md](docs/BUILDING.md). The USB protocol, reverse-engineered from the keyboard's own traffic, is
