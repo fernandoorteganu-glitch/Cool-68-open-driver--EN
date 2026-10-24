@@ -47,6 +47,9 @@ The IN endpoint is shared: replies and pushed events (the live stream) arrive on
   0–255 but treats every non-7 value as a single colour. **While mix is on, the RGB bytes of a write are ignored** and the
   last single colour is kept, so to store a colour write it with `mix = 0` first.
 * In multicolour, *Always on* and *Scan* show one palette colour (yellow); other effects use their own palette.
+* **After a power cycle the keyboard reads its colour back as `0, 0, 0`** while the LEDs still show the real colour
+  (checked by unplugging and replugging). Mode, brightness, speed and `mix` read back correctly. Do not treat a black
+  read-back as the actual colour; writing one back would change the LEDs.
 * Which controls an effect honours: Neon (3), Windmill (15) and Waterfall (16) ignore the colour; Always on (1) has no speed;
   Off has none; Custom has colour and brightness only.
 

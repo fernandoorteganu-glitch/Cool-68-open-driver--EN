@@ -53,6 +53,8 @@ Windows 10/11, 64-bit, keyboard connected with the USB cable.
   reconnects when you unplug and replug the cable.
 * The **effect previews are simulations**. The keyboard runs the effects itself and cannot report what its LEDs are
   doing, so they are matched to how the effects look on the real keyboard.
+* After you unplug and replug the keyboard it still shows your backlight colour, but it no longer *reports* it, so the
+  Lighting page can't show the current colour until you pick one.
 * **Multicolour** is on/off only on this keyboard (a fixed yellow palette). The firmware has no selectable palette.
 * The side light's effects are numbered, not named; try them and see.
 * `Fn+Tab` and `Fn+\` are defined in the firmware but do nothing; the app labels them *No function*.

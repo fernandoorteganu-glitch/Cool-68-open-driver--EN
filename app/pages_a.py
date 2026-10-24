@@ -135,9 +135,11 @@ class DashboardPage(Page):
         light, side = kb.get_light(), kb.get_side_light()
         self.view.static_fills = ({p: QColor(*c) for p, c in kb.get_key_colors().items() if c != (0, 0, 0)}
                                   if light["mode"] == cool68.LIGHT_CUSTOM else {})
-        self.view.set_effect(light["mode"], QColor(light["r"], light["g"], light["b"]), light["mix"],
+        rgb = (light["r"], light["g"], light["b"])
+        self.view.set_effect(light["mode"], QColor(*(rgb if rgb != (0, 0, 0) else (255, 255, 255))), light["mix"],
                              light["brightness"], light["speed"])
-        self.view.side = (QColor(side["r"], side["g"], side["b"]), side["brightness"])
+        srgb = (side["r"], side["g"], side["b"])
+        self.view.side = (QColor(*(srgb if srgb != (0, 0, 0) else (255, 255, 255))), side["brightness"])
 
     @guarded
     def set_profile(self, idx):
@@ -343,9 +345,13 @@ class ZonePanel(QWidget):
         lay = QVBoxLayout(self)
         lay.setContentsMargins(0, 0, 0, 0)
         lay.setSpacing(14)
+        self._unknown = False                   # the keyboard reported a black colour (see load())
         self.picker = ColorPicker()
         self.picker.changed.connect(self._picked)
         lay.addWidget(self.picker, 1)
+        self.note = label("The keyboard doesn't report its colour after a power cycle. Pick a colour to set it; "
+                          "changing brightness or speed sends the colour shown above.", "muted", True)
+        self.note.setVisible(False)
         self.bright = LabeledSlider("Brightness", *cool68.BRIGHTNESS_RANGE)
         self.speed = LabeledSlider("Speed", *cool68.SPEED_RANGE)
         for s_ in (self.bright, self.speed):
@@ -359,10 +365,16 @@ class ZonePanel(QWidget):
         mix_lay.addLayout(setting_row("Multicolour", "The keyboard's built-in palette (a fixed yellow here). "
                                       "Picking a colour turns it off", self.mix))
         lay.insertWidget(0, self.mix_row)           # on top so it is always in view
+        lay.insertWidget(1, self.note)              # right under it, where it cannot be missed
 
     def _picked(self, _):
         self.set_multicolour(False)     # like the vendor app: choosing a colour means a single colour
+        self._unknown = False
+        self._update_note()
         self.changed.emit()
+
+    def _update_note(self):
+        self.note.setVisible(self._unknown and self.picker.isEnabled())
 
     def set_multicolour(self, on, mask=None):
         """Set the multicolour switch without emitting a change."""
@@ -374,15 +386,21 @@ class ZonePanel(QWidget):
         self.bright.setEnabled("brightness" in caps)
         self.speed.setEnabled("speed" in caps)
         self.mix_row.setEnabled("mix" in caps)
+        self._update_note()
 
     def state(self):
         mix = 7 if self.mix.isChecked() else 0     # the keyboard only knows 0 (single colour) and 7 (multicolour)
         return self.picker.color(), int(self.bright.value()), int(self.speed.value()), mix
 
     def load(self, d):
-        # a stored colour of pure black would turn the light off as soon as the user picks an effect, so show white
-        rgb = (d["r"], d["g"], d["b"]) if (d["r"], d["g"], d["b"]) != (0, 0, 0) else (255, 255, 255)
+        # After a power cycle the keyboard reads its colour back as black (0,0,0) although the LEDs keep the real
+        # colour. A black colour would also turn the light off once the user picks an effect, so show white and
+        # tell the user the real colour is unknown.
+        black = (d["r"], d["g"], d["b"]) == (0, 0, 0)
+        rgb = (255, 255, 255) if black else (d["r"], d["g"], d["b"])
         self.picker.set_color(QColor(*rgb))
+        self._unknown = black and not d["mix"]
+        self._update_note()
         self.bright.set_value(d["brightness"])
         self.speed.set_value(d["speed"])
         self.set_multicolour(d["mix"], d["mix_mask"] if d["mix"] else None)
